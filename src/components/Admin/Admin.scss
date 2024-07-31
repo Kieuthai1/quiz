@@ -5,4 +5,14 @@
             height: 100vh !important;
         }
     }
+    .admin-content{
+        .admin-header{
+                     height: auto;
+                    border: 1px solid blue;
+        }
+        .admin-main{
+            height: auto;
+            border: 1px solid rgb(0, 0, 0);
+        }
+    }
 }

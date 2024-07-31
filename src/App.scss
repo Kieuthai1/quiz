@@ -22,6 +22,9 @@ body {
       padding: 0 15px;
       border: 1px solid #595959;
       height: 40px;
+      &:hover{
+        background: rgb(179, 179, 179);
+      }
   }
   .btn-signup {
     border-radius: 5px;
