@@ -52,15 +52,12 @@ const  ModalCreateUser = (props)=> {
       toast.error('invali password')
       return;
     }
-
-    
-
-
-            let data= await postCeateNewUser(email, password, username, image);
+            let data= await postCeateNewUser(email, password, username, role, image);
             console.log("component res: ", data )
             if(data && data.EC === 0){
               toast.success(data.EM);
               handleClose();
+              await props.fetchListUsers();
             }
             if(data && data.EC !== 0){
               toast.error(data.EM);
@@ -111,7 +108,7 @@ const  ModalCreateUser = (props)=> {
               <div className="col-md-4">
                 <label  className="form-label">Role</label>
                 <select  className="form-select" onChange={(event) => setRole(event.target.value)}>
-                  <option value="USER">Users</option>
+                  <option value="USER">USER</option>
                   <option value="ADMIN" >ADMIN</option>
                 </select>
               </div>

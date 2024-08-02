@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
-import { getAllUsers } from "../../../services/apiService";
+
 const TableUser = (props) => {
-    const [listUser, setListUser] = useState([])
-        
-    
-    useEffect(() => {
-            fetchListUser();
-        },[]);
-    const fetchListUser = async() => {
-      let res = await getAllUsers();
-      console.log('>> check' ,res);
-      if(res.EC === 0){
-        setListUser(res.DT)
-      }
-    }
-    
+    const {listUsers} = props;
+    // const listUsers = props.listUsers;
     return(
         <>
         <table className="table table-hover table-bordered">
             <thead>
                 <tr>
-                <th scope="col">No</th>
+                <th scope="col">ID</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
@@ -28,12 +15,12 @@ const TableUser = (props) => {
                 </tr>
             </thead>
             <tbody>
-                {listUser && listUser.length > 0 &&
-                listUser.map( (item, index) => {
+                {listUsers && listUsers.length > 0 &&
+                listUsers.map( (item, index) => {
                    
                     return(// key không bị trùng với chỉ số index
                         <tr key={`table-user-${index}`}> 
-                            <td>{index + 1}</td>
+                            <td>{item.id}</td>
                             <td>{item.username}</td>
                             <td>{item.email}</td>
                             <td>{item.role}</td>
@@ -48,7 +35,7 @@ const TableUser = (props) => {
 
                     }) 
                 }
- {listUser && listUser.length === 0 && <tr><td colSpan={'4'} >not found data</td></tr>}
+ {listUsers && listUsers.length === 0 && <tr><td colSpan={'4'} >not found data</td></tr>}
 
       
 
