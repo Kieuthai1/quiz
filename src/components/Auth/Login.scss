@@ -2,7 +2,23 @@
     .header{
         height: 45px;
         text-align: right;
-        border: 1px solid black;
+        padding: 5px 100px 0 100px;
+        
+        button{
+            padding: 3px 15px;
+            margin-left: 15px;
+            border-radius: 5px;
+            background: #d8d8d8;
+            border: 1px solid;
+
+            &:hover{
+                background-color: white;
+            }
+        }
+  
+         
+        
+       
     }
     .title{
         font-size: 25px;
@@ -28,6 +44,19 @@
             border-radius: 5px;
             color: white;
             background: black;
+        }
+        .back{
+            cursor: pointer;
+        }  
+        .pass-group {
+            position: relative;
+
+            .icons-eye {
+                cursor: pointer;
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+            }
         }
     }
 }

@@ -54,7 +54,10 @@ const TableUserPage = (props) => {
 
                     }) 
                 }
- {listUsers && listUsers.length === 0 && <tr><td colSpan={'4'} >not found data</td></tr>}
+            {listUsers && listUsers.length === 0 && 
+                <tr>
+                    <td colSpan={'5'} >not found data</td>
+                </tr>}
 
       
 
