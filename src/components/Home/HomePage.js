@@ -1,10 +1,10 @@
 import videoHomepage from '../../assets/video-homepage.mp4';
 import icon from '../../assets/check-icon.svg';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const HomePage = (props) => {
     const isAuthenticated =useSelector(state => state.user.isAuthenticated);
-    const account =useSelector(state => state.user.account);
-
+    const navigite = useNavigate();
     return(
         <div className="homepage-container">
            <video  autoPlay muted loop>
@@ -22,7 +22,11 @@ const HomePage = (props) => {
                         <div> <img src={icon}></img> Triển khai thi online hoặc làm bài thi online không cần cài đặt ứng dụng</div>    
                </div>
                 <div  className='title-3'>
-                    <button>Đăng ký miễn phí</button>
+                    {isAuthenticated === false ?
+                         <button onClick={() => navigite('/login')}>Get's started. It's free</button>
+                         :
+                         <button onClick={() => navigite('/users')}>Doing Quiz Now</button>
+                        }               
                 </div>
            </div>
         </div>
