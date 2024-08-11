@@ -19,13 +19,12 @@ const instance = axios.create({
     baseURL: 'http://localhost:8081',
   });
 
-
-
   // Add a request interceptor
   instance.interceptors.request.use(function (config) {
     const access_token = store?.getState()?.user?.account?.access_token;
-    config.headers["Authorization"] = `Bearer  ${access_token}`;
-    NProgress.start();
+    config.headers["Authorization"] = `Bearer ${access_token}`; //f:()
+    console.log("check token" , access_token);
+    NProgress.start()
     // Do something before request is sent
     return config;
   }, function (error) {
