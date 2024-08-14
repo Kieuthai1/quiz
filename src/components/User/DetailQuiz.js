@@ -31,7 +31,7 @@ const DetailQuiz = (props) =>{
             let questionDescription, image = null;
             value.forEach((item, index) => {
                 if(index === 0){
-                    questionDescription = item.questionDescription;
+                    questionDescription = item.description;
                     image = item.image;
                 }
                 answers.push(item.answers);
@@ -39,7 +39,7 @@ const DetailQuiz = (props) =>{
             })
             console.log('value' , value,  'key', key);
            
-            return{ questionId: key, answers, questionDescription, image }
+            return{ questionId: key, answers, questionDescription, image}
         })
         .value()
         console.log(data)
@@ -48,9 +48,12 @@ const DetailQuiz = (props) =>{
     }
    console.log("check data fa", dataQuiz);
     const handlePrev = () =>{
+        if(index - 1 < 0 ) return;
+        
         setIndex(index - 1);
     }
     const handleNext = () =>{
+        if(dataQuiz && dataQuiz.length > index + 1 )
         setIndex(index + 1);
     }
 

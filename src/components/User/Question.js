@@ -8,9 +8,13 @@ const Question = (props) =>{
     }
     return(
         <>
-            <div className='q-image'>
-            <img  src={`data:image/jpeg;base64,${data.image}`} />
-            </div>
+        {data.image &&
+                    <div className='q-image'>
+                    <img  src={`data:image/jpeg;base64,${data.image}`} />
+                    </div>
+        }
+
+
             <div className="question">Question {index + 1}: {data.questionDescription}
 
             </div>
