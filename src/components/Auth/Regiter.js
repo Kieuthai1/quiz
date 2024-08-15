@@ -35,7 +35,7 @@ const Regiter = () => {
         // submit apis
         let data = await postRegiter(email, password, username);
         if(data && data.EC === 0){
-            console.log("check date", data)
+     //       console.log("check date", data)
             toast.success(data.EM);
             navigate("/login");
           }

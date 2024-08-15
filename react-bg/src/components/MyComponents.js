@@ -21,7 +21,7 @@ class MyComponents extends React.Component{
 
 
     handledAddNewUser = (userObj) => {
-        console.log(">>> check date from  parent", userObj)
+       // console.log(">>> check date from  parent", userObj)
         this.setState({
             listUser: [userObj,...this.state.listUser ]
         })
