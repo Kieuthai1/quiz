@@ -8,11 +8,11 @@
     .admin-content{
         width: 100%;
         .admin-header{
-                     height: auto;
+                     height: 40px;
                     border: 1px solid blue;
         }
         .admin-main{
-            
+            height: calc(100vh - 40px);
         }
     }
 }
