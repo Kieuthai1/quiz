@@ -11,7 +11,7 @@ const TableUser = (props) => {
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
-                <th> Action</th>
+                <th> Action ư</th>
                 </tr>
             </thead>
             <tbody>

@@ -5,6 +5,7 @@ import { postCreatNewQuiz } from '../../../../services/apiService';
 import {  toast } from 'react-toastify';
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
+import { getAllQuizForAdmin } from "../../../../services/apiService";
 
 
 const options = [
@@ -19,11 +20,18 @@ const ManageQuiz = (props) =>{
     const [desription, setDesription] = useState('');
     const [type, setType] = useState('');
     const [image, setImage] = useState(null);
+    const[listQuiz, setListQuiz] = useState([]);
+    const [dataCreate, setDataCreate] = useState({});
+
     const handleChangeFile = (event) =>{
         if(event.target && event.target.files && event.target.files[0] ){   
             setImage(event.target.files[0])
           }
     }
+
+ 
+    
+
     const handleSumbitQuiz = async() =>{
         // validate
         if(!name || !desription){
@@ -36,10 +44,15 @@ const ManageQuiz = (props) =>{
                     setName('');
                     setDesription('');
                     setImage(null);
+                    window.location.reload();
+                    
             }else{
                 toast.error(res.EM)
             }
+
     }
+
+
     return(
         <div className="quiz-container">
             <Accordion>
@@ -104,7 +117,7 @@ const ManageQuiz = (props) =>{
           
         <div  className="list-detail">
             <TableQuiz/>
-        </div>
+       </div>
         </div>
     )
 }

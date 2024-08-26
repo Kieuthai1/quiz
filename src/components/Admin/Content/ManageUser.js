@@ -76,16 +76,16 @@ const ManageUser = (props) =>{
                             handleClickBtnDelete = {handleClickBtnDelete}/> */}
                             
                     </div>
-                            <TableUserPage
-                            listUsers={listUsers}
-                            handleClickBtnUpdate = {handleClickBtnUpdate}
-                            handleBtnView = {handleBtnView} 
-                            handleClickBtnDelete = {handleClickBtnDelete}
-                            fetchListUsersWithPaginate ={fetchListUsersWithPaginate}
-                            pageCount={pageCount}
-                            currentPage ={currentPage}
-                            setCurrentPage = {setCurrentPage}
-                            />
+                                <TableUserPage
+                                listUsers={listUsers}
+                                handleClickBtnUpdate = {handleClickBtnUpdate}
+                                handleBtnView = {handleBtnView} 
+                                handleClickBtnDelete = {handleClickBtnDelete}
+                                fetchListUsersWithPaginate ={fetchListUsersWithPaginate}
+                                pageCount={pageCount}
+                                currentPage ={currentPage}
+                                setCurrentPage = {setCurrentPage}
+                                />
                               <ModalCreateUser 
                               show={showModalCreateUser}
                               setShow={setShowModalCreateUser}
