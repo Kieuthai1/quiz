@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import  './Questions.scss';
 import { FiPlusSquare } from "react-icons/fi";
@@ -7,17 +7,11 @@ import { RiImageAddFill } from "react-icons/ri";
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import Lightbox from "react-awesome-lightbox";
+import { getAllQuizForAdmin, postCreateNewQuesitonForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiService";
 
 
 
 const Questions = (props) =>{
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-      ];
-    const [selectdQuiz, setSelectdQuiz] = useState({});
-
     const [questions, setQuestions] = useState(
         [
             {
@@ -42,6 +36,28 @@ const Questions = (props) =>{
         title: '',
         url: ''
     })
+
+    const [selectdQuiz, setSelectdQuiz] = useState({});
+    const [listQuiz, setListQuiz] = useState([]);
+
+    useEffect(() =>{
+        fetchQuiz();
+    }, [])
+
+    const fetchQuiz = async() =>{
+        let res = await getAllQuizForAdmin();
+        if(res && res.EC === 0){
+            let newQuiz = res.DT.map(item => {
+                return{
+                    value: item.id,
+                    label: `${item.id} - ${item.description}`
+                }
+            })
+            setListQuiz(newQuiz)
+        }
+      
+    }
+
     const handleAddRemoveQuestion = (type, id) =>{
         if(type === 'ADD'){
             const newQuestion = {
@@ -52,13 +68,14 @@ const Questions = (props) =>{
                 answers: [
                     {   
                         id: uuidv4(),
-                        description: 'answers 1',
+                        description: '',
                         isCorrect: false
                     }
                 ]
          };
         setQuestions([...questions, newQuestion]);
         }
+
         if(type === "REMOVE"){
             let questionsClone = _.cloneDeep(questions); 
             questionsClone = questionsClone.filter(item => item.id !== id);
@@ -86,8 +103,10 @@ const Questions = (props) =>{
             questionsClone[index].answers = questionsClone[index].answers.filter(item => item.id !== answerId);
             setQuestions(questionsClone);
         }
+
        console.log("check>> :", type, questionId ,  answerId)
     }
+
     const handOnChange = (type, questionId, value) => {
         if(type === 'QUESTION'){
             let questionsClone = _.cloneDeep(questions);
@@ -99,6 +118,7 @@ const Questions = (props) =>{
             
         }
     }
+
     const handOnChangeFileQuestion = (questionId, event) =>{
         let questionsClone = _.cloneDeep(questions);
         let index = questionsClone.findIndex(item => item.id === questionId);
@@ -128,8 +148,33 @@ const Questions = (props) =>{
                 setQuestions(questionsClone);
         }
     }
-    const handleSubmitQuestionForQuiz = () =>{
-        console.log("questions", questions);
+
+    const handleSubmitQuestionForQuiz = async() =>{
+        // todo 
+
+        // validate data
+
+        console.log("questions", questions, selectdQuiz);
+      //  postCreateNewQuesitonForQuiz, postCreateNewAnswerForQuestion
+
+      
+        //submit questions
+        await Promise.all(questions.map(async (question) => {
+            const q = await postCreateNewQuesitonForQuiz(
+                +selectdQuiz.value, 
+                question.description, 
+                question.imageFile );
+        // submit answers
+                await Promise.all(question.answers.map(async(answer) => {
+                    await postCreateNewAnswerForQuestion(
+                        answer.description, answer.isCorrect, q.DT.id
+                    )
+                }))
+        }));
+        
+   
+
+
     } 
 
     const handlePreviewImage = (questionId) =>{
@@ -143,6 +188,8 @@ const Questions = (props) =>{
             setIsPreviewImage(true);
         }
     }
+
+
     return(
         <div className="question-container">
             <div className="title">
@@ -155,7 +202,7 @@ const Questions = (props) =>{
                     <Select
                                 defaultValue={selectdQuiz}
                                 onChange={setSelectdQuiz}
-                                options={options}                          
+                                options={listQuiz}                          
                     />
                 </div>
                
@@ -179,53 +226,57 @@ const Questions = (props) =>{
                                         />
                                     <label> Question {index+1} 's description</label>
                                 </div>
+
                                 <div className='group-upload'>
                                     <label htmlFor={`${question.id}`} >
                                         <RiImageAddFill className='label-up'/>
                                     </label>
                                     <input 
-                                    id={`${question.id}`}
-                                    onChange={ (event) => handOnChangeFileQuestion(question.id, event)}
-                                    type={'file'} 
-                                    hidden
+                                        id={`${question.id}`}
+                                        onChange={ (event) => handOnChangeFileQuestion(question.id, event)}
+                                        type={'file'} 
+                                        hidden
                                     />
-                                    <span>{question.imageName ?
-                                             <span 
-                                                style={{cursor: 'pointer'}}
-                                                onClick={() => handlePreviewImage(question.id)}>
-                                                {question.imageName}
-                                            </span>
+                                    <span>
+                                        {question.imageName ?
+                                                                <span 
+                                                                    style={{cursor: 'pointer'}}
+                                                                    onClick={() => handlePreviewImage(question.id)}>
+                                                                    {question.imageName}
+                                                                </span>
                                     
                                             :
                                             '0 file is uploaded'
-                                            }</span>
+                                        }
+                                    </span>
                                 </div>
+
                                 <div className='btn-add'>
                                     <span onClick={() => handleAddRemoveQuestion('ADD', '')}>
-                                    <FiPlusSquare  className='icon-add'/>
+                                         <FiPlusSquare  className='icon-add'/>
                                     </span>
                                     {questions.length > 1 && 
-                                        <span onClick={() => handleAddRemoveQuestion('REMOVE', question.id)}>
-                                        <AiFillMinusSquare className='icon-remove' />
-                                        </span>
-                                    }
-                                   
+                                    <span onClick={() => handleAddRemoveQuestion('REMOVE', question.id)}>
+                                            <AiFillMinusSquare className='icon-remove' />
+                                    </span>
+                                    }                               
                                 </div>
-        
                             </div>
+
                             {
                                 question.answers && question.answers.length > 0 
                                 && question.answers.map((answer, index) => {
                                     return(
                                         <div key={answer.id} className='answer-content'>
+
                                         <input 
                                             className="form-check-input isconrrect"
                                             type="checkbox" 
                                             checked={answer.isCorrect}
                                             onChange={(event) =>
                                                  handleAnswerQuestion('CHECKBOX', answer.id, question.id, event.target.checked)}
-
                                         />
+
                                         <div className="form-floating anwser-name">
                                             <input 
                                             value={answer.description}
@@ -236,29 +287,28 @@ const Questions = (props) =>{
                                                  handleAnswerQuestion('INPUT', answer.id, question.id, event.target.value)}/>
                                             <label>Answer {index + 1}</label>
                                         </div>
+
                                         <div className='btn-group'>
                                             <span onClick={() => handleAddRemoveAnswer('ADD', question.id)}>
-                                            <FiPlusSquare  className='icon-add'/>
+                                                 <FiPlusSquare  className='icon-add'/>
                                             </span>
                                             {
                                                 question.answers.length > 1 && 
                                                 <span onClick={() => handleAddRemoveAnswer('REMOVE', question.id ,answer.id)}>
-                                                <AiFillMinusSquare className='icon-remove' />
+                                                    <AiFillMinusSquare className='icon-remove' />
                                                 </span>
                                             }
-                                            
                                         </div>
                                     </div>
                                     )
                                 })
                             }
-                          
-                          
                         </div>
                     )
 
                 })
             }
+
             {
                 questions && questions.length > 0 &&
                 <div>
@@ -269,12 +319,11 @@ const Questions = (props) =>{
             }
 
             {isPreviewImage === true &&
-                               <Lightbox 
-
+                            <Lightbox 
                                     image={dataImagePreview.url}
                                     title={dataImagePreview.title}
                                     onClose = {() => setIsPreviewImage(false)}
-                                >       
+                            >       
                             </Lightbox>
             }
             </div>
