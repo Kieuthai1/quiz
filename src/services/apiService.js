@@ -1,5 +1,9 @@
 import { delay } from 'lodash';
 import axios from '../utils/axiosCustomize';
+
+
+
+
 const postCeateNewUser = (email, password, username, role,image) => {
         //submit data
         const data = new FormData();
@@ -96,9 +100,25 @@ const postCreateNewAnswerForQuestion = (description, correct_answer, question_id
                 });
 }
 
+const logout = (email, refresh_token) =>{
+        return axios.post('api/v1/logout',{
+                email, refresh_token
+        });
+}
+
+const postzAssignQuiz = (quizId, userId) =>{
+        return axios.post('api/v1/quiz-assign-to-user', {
+                quizId, userId
+        });
+}
+
+const getQuizWithQA = (quizId) =>{
+        return axios.get(`api/v1/quiz-with-qa/${quizId}`);
+}
+
 export {postCeateNewUser, getAllUsers, putUpdateUser,
         deleteUser, getUserWithPaginate, postLogin,
         postRegiter, getQuizByUser, getDataQuiz,
          postSubmitQuiz, postCreatNewQuiz,getAllQuizForAdmin,
          DelQuizForAdmin, putUpdateQuizForAdmin, postCreateNewQuesitonForQuiz,
-         postCreateNewAnswerForQuestion}
+         postCreateNewAnswerForQuestion, logout, postzAssignQuiz, getQuizWithQA}

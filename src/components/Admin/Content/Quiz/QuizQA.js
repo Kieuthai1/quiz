@@ -7,7 +7,9 @@ import { RiImageAddFill } from "react-icons/ri";
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
 import Lightbox from "react-awesome-lightbox";
-import { getAllQuizForAdmin, postCreateNewQuesitonForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiService";
+import { getAllQuizForAdmin, postCreateNewQuesitonForQuiz, 
+        postCreateNewAnswerForQuestion, getQuizWithQA} 
+        from "../../../../services/apiService";
 import {  toast } from 'react-toastify';
 
 
@@ -44,7 +46,50 @@ const QuizQA = (props) =>{
         fetchQuiz();
     }, [])
 
-    const fetchQuiz = async() =>{
+    useEffect(() => {
+        if(selectdQuiz && selectdQuiz.value){
+        fetchQuizWithQA();
+    }}, [selectdQuiz])
+
+    // return a promise that resolves with a File instance
+    function urltoFile(url, filename, mimeType){
+    // if (url.startsWith('data:')) {
+    //     var arr = url.split(','),
+    //         mime = arr[0].match(/:(.*?);/)[1],
+    //         bstr = atob(arr[arr.length - 1]), 
+    //         n = bstr.length, 
+    //         u8arr = new Uint8Array(n);
+    //     while(n--){
+    //         u8arr[n] = bstr.charCodeAt(n);
+    //     }
+    //     var file = new File([u8arr], filename, {type:mime || mimeType});
+    //     return Promise.resolve(file);
+    // }
+    return fetch(url)
+        .then(res => res.arrayBuffer())
+        .then(buf => new File([buf], filename,{type:mimeType}));
+    }
+
+    const fetchQuizWithQA = async() =>{
+        let rs = await getQuizWithQA(selectdQuiz.value);
+        if(rs && rs.EC ===0){
+            //convert base64 to file object
+            let newQA = [];
+            for(let i =0; i< rs.DT.qa.length; i++){
+                let q = rs.DT.qa[i];
+                if(q.imageFile){
+                   q.imageFile = 
+                 await  urltoFile(`data:image/png;base64,${q.imageFile}=`, `Question-${q.id}.png`,'image/png')
+                }
+                newQA.push(q);
+            }
+              setQuestions(newQA);
+              console.log("check mewQA", newQA)
+              console.log("check rs", rs)
+
+        }
+    }
+    const fetchQuiz = async(selectdQuiz) =>{
         let res = await getAllQuizForAdmin();
         if(res && res.EC === 0){
             let newQuiz = res.DT.map(item => {
@@ -379,3 +424,4 @@ const QuizQA = (props) =>{
     )
 }
 export default QuizQA;
+
