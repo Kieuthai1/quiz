@@ -40,56 +40,43 @@ const QuizQA = (props) =>{
     })
     
     const [listQuiz, setListQuiz] = useState([]);
-    const [selectdQuiz, setSelectdQuiz] = useState({});
+    const [selectedQuiz, setSelectedQuiz] = useState({});
 
     useEffect(() =>{
         fetchQuiz();
     }, [])
 
     useEffect(() => {
-        if(selectdQuiz && selectdQuiz.value){
+        if(selectedQuiz && selectedQuiz.value){
         fetchQuizWithQA();
-    }}, [selectdQuiz])
+    }}, [selectedQuiz])
 
     // return a promise that resolves with a File instance
     function urltoFile(url, filename, mimeType){
-    // if (url.startsWith('data:')) {
-    //     var arr = url.split(','),
-    //         mime = arr[0].match(/:(.*?);/)[1],
-    //         bstr = atob(arr[arr.length - 1]), 
-    //         n = bstr.length, 
-    //         u8arr = new Uint8Array(n);
-    //     while(n--){
-    //         u8arr[n] = bstr.charCodeAt(n);
-    //     }
-    //     var file = new File([u8arr], filename, {type:mime || mimeType});
-    //     return Promise.resolve(file);
-    // }
-    return fetch(url)
-        .then(res => res.arrayBuffer())
-        .then(buf => new File([buf], filename,{type:mimeType}));
-    }
+    return (fetch(url)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], filename,{type:mimeType});})
+    )}
 
-    const fetchQuizWithQA = async() =>{
-        let rs = await getQuizWithQA(selectdQuiz.value);
-        if(rs && rs.EC ===0){
-            //convert base64 to file object
-            let newQA = [];
-            for(let i =0; i< rs.DT.qa.length; i++){
-                let q = rs.DT.qa[i];
-                if(q.imageFile){
-                   q.imageFile = 
-                 await  urltoFile(`data:image/png;base64,${q.imageFile}=`, `Question-${q.id}.png`,'image/png')
-                }
-                newQA.push(q);
+    const fetchQuizWithQA = async() => {
+        let rs = await getQuizWithQA(selectedQuiz.value);
+        if(rs && rs.EC === 0) {
+          //convert base64 to File object
+          let newQA = [];
+          for(let i = 0; i < rs.DT.qa.length; i++){
+            let q = rs.DT.qa[i];
+            if(q.imageFile){
+              q.imageName = `Question-${q.id}.png`;
+              q.imageFile = await urltoFile(`data:image/png;base64,${q.imageFile}`, `Question-${q.id}.png`, 'image/png');
             }
-              setQuestions(newQA);
-              console.log("check mewQA", newQA)
-              console.log("check rs", rs)
-
+            newQA.push(q);
+          }
+          setQuestions(newQA);
+          console.log(">>>check newQA: ", newQA)
+          console.log(">>>Check rs", rs)     
         }
-    }
-    const fetchQuiz = async(selectdQuiz) =>{
+      }
+    const fetchQuiz = async(selectedQuiz) =>{
         let res = await getAllQuizForAdmin();
         if(res && res.EC === 0){
             let newQuiz = res.DT.map(item => {
@@ -204,7 +191,7 @@ const QuizQA = (props) =>{
         // //submit questions
         // await Promise.all(questions.map(async (question) => {
         //     const q = await postCreateNewQuesitonForQuiz(
-        //         +selectdQuiz.value, 
+        //         +selectedQuiz.value, 
         //         question.description, 
         //         question.imageFile );
         // // submit answers
@@ -217,7 +204,7 @@ const QuizQA = (props) =>{
 
 
         // todo 
-        if(_.isEmpty(selectdQuiz)){
+        if(_.isEmpty(selectedQuiz)){
             toast.error("Please choose a Quiz")
         }
 
@@ -258,7 +245,7 @@ const QuizQA = (props) =>{
         // submit questions
         for(const question of questions){
             const q = await postCreateNewQuesitonForQuiz(
-                +selectdQuiz.value,
+                +selectedQuiz.value,
                 question.description,
                 question.imageFile);
                 //sumbit answer
@@ -292,8 +279,8 @@ const QuizQA = (props) =>{
                 <div className='col-6 form-group'>
                     <label className='mb-2'>Select Quiz: </label>
                     <Select
-                                defaultValue={selectdQuiz}
-                                onChange={setSelectdQuiz}
+                                defaultValue={selectedQuiz}
+                                onChange={setSelectedQuiz}
                                 options={listQuiz}                          
                     />
                 </div>
