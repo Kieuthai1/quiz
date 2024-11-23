@@ -189,7 +189,6 @@ const QuizQA = (props) =>{
             toast.error("Please choose a Quiz")
         }
 
-
         //validate answer
         let isValidAnswer = true;
         let indexQ = 0, indexA = 0;
