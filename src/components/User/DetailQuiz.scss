@@ -64,7 +64,7 @@
             gap: 19px;
             flex-wrap: wrap;
             padding: 15px;
-            .question-content {
+            .question_content{
                 border: 1px solid #000000;
                 /* padding: 3px; */
                 height: 40px;
@@ -78,7 +78,14 @@
                 &:hover{
                   color: red;
                 }
-                
+
+                &.selected{
+                    background-color: #eda3a3b5;
+                }
+
+                &.clicked{
+                    color: #c61c1cb5;
+                }
             }
         }
        
