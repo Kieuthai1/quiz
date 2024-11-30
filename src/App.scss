@@ -9,6 +9,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.languages{
+    .dropdown-toggle::after {
+    display:none !important;
+  }
+}
+
 
 @media (min-width: 1190px) {
   .container, .container-lg, .container-md, .container-sm, .container-xl {
@@ -96,3 +102,4 @@ video{
   bottom: 0;
   width: 100vw;
 }
+

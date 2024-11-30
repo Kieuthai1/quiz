@@ -37,7 +37,7 @@ const postLogin = (email, password) =>{
                 {
                  email, 
                  password,
-                 delay: 4000
+                 delay: 2000
         
                 }
         );
@@ -117,4 +117,4 @@ export {postCeateNewUser, getAllUsers, putUpdateUser,
         postSubmitQuiz, postCreatNewQuiz,getAllQuizForAdmin,
         DelQuizForAdmin, putUpdateQuizForAdmin, postCreateNewQuesitonForQuiz,
         postCreateNewAnswerForQuestion, logout, postzAssignQuiz,
-        getQuizWithQA, postUpsertQA    }
+        getQuizWithQA, postUpsertQA  }

@@ -5,6 +5,7 @@ import { postRegiter } from '../../services/apiService';
 import {  toast } from 'react-toastify';
 
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import Language from '../Header/Language';
 const Regiter = () => {
     const [email,setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -48,6 +49,7 @@ const Regiter = () => {
            <div className='header'>
                  <span>Already have an account ?</span> 
                  <button onClick={() => navigate('/login')}>Log in</button>
+                 <Language/>
            </div>
            <div className='title col-4 mx-auto'>
                 KIUETHAI
