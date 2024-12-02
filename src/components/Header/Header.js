@@ -8,11 +8,15 @@ import { logout } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/userAction';
 import Language from './Language';
+import { useTranslation, Trans } from 'react-i18next';
+
 const Header = () =>  {
   const isAuthenticated =useSelector(state => state.user.isAuthenticated);
   const account =useSelector(state => state.user.account);
   const  dispatch = useDispatch()
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const handleLogin = ()=>{
     navigate('/login');
   }
@@ -37,7 +41,7 @@ const Header = () =>  {
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         {/* <Navbar.Brand href="#home">Trang chủ</Navbar.Brand> */}
-        <NavLink to= '/' className='navbar-brand'>Trang chủ</NavLink>
+        <NavLink to= '/' className='navbar-brand'>{t('homepage.title5')}</NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -57,12 +61,9 @@ const Header = () =>  {
             </>
             :
                 <NavDropdown title="Setting" id="basic-nav-dropdown">
-            
                     <NavDropdown.Item >Profile</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
-
-                </NavDropdown>
-                
+                   <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
+                </NavDropdown> 
     }
             <Language/>
           </Nav>
