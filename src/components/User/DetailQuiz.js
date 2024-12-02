@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, NavLink } from "react-router-dom";
 import { getDataQuiz, postSubmitQuiz } from "../../services/apiService";
 import _ from 'lodash';
 import  './DetailQuiz.scss';
 import Question from "./Question";
 import ModalResult from "./ModalResult";
 import RightContent from "./Content/RightContent";
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { useTranslation, Trans } from 'react-i18next';
+import Language from "../Header/Language";
+import { Nav } from "react-bootstrap";
 
 const DetailQuiz = (props) =>{
     const params = useParams();
@@ -16,6 +20,7 @@ const DetailQuiz = (props) =>{
     const[index, setIndex] = useState(0);
     const [isShowModalResult, setIsShowModalResult] = useState(false);
     const [dataModalResult, setDataModalResult]=useState({})
+    const { t } = useTranslation();
 
     useEffect(()  => {
         fetchQuestions();
@@ -121,7 +126,28 @@ const DetailQuiz = (props) =>{
         }
     }
     return(
-        <div className="detail-quiz-container">
+        <>  
+     <div className="main-quiz-detai-new-header">
+     <Breadcrumb className="quiz-detai-new-header">
+                <NavLink to='/' className='breadcrumb-item'>
+                {t('header.title2')}
+                </NavLink>
+                <NavLink to='/users' className='breadcrumb-item'>
+                {t('header.title3')}
+                </NavLink>
+                <Breadcrumb.Item active>{t('header.title5')}</Breadcrumb.Item>
+        </Breadcrumb>
+        <span className="language-header">
+            <Language />
+        </span>
+        
+     </div>
+      
+
+   
+           
+          
+            <div className="detail-quiz-container">
                <div className="left-content">
                         <div className="title">
                  Quiz: {quizId} {location?.state?.quizTitle}
@@ -165,7 +191,10 @@ const DetailQuiz = (props) =>{
                 setShow={setIsShowModalResult}
                 dataModalResult = {dataModalResult}
                />
-        </div>
+             </div>
+          
+        </>
+      
     )
 }
 export default DetailQuiz;

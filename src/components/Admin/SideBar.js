@@ -15,10 +15,14 @@ import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import './SideBar.scss';
+import { useTranslation, Trans } from 'react-i18next';
+
 const SideBar = (props) =>{
     const navigate = useNavigate();
     const { image, collapsed, toggled, handleToggleSidebar } = props;
-   return(
+    const { t } = useTranslation();
+
+    return(
         <>
             <ProSidebar
                 image={sidebarBg}
@@ -41,7 +45,7 @@ const SideBar = (props) =>{
                         }}
                     >   
                      <DiReact size={'3em'} color={"00bfff"} />    
-                       <span onClick={() => navigate('/')}>Trang chủ</span> 
+                       <span onClick={() => navigate('/')}>{t('amdin.sidebar.title0')}</span> 
                     </div>
                 </SidebarHeader>
 
@@ -50,24 +54,27 @@ const SideBar = (props) =>{
                         <MenuItem
                              icon={<MdDashboard />}
                         >
-                            Dashboard
+                           {t('amdin.sidebar.title1')}
                             <Link to="/Admin" />
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
                             icon={<FaGem />}
-                            title="Features"
+                            title= {t('amdin.sidebar.title3')} 
                         >
-                            <MenuItem> Quản lý Users 
-                             <Link to="/admin/manage-users"/>
+                            <MenuItem>
+                                {t('amdin.sidebar.title4')} 
+                                <Link to="/admin/manage-users"/>
                             </MenuItem>
-                            <MenuItem > Quản lý Bài Quiz 
-                            <Link to="/admin/manage-quizzes"/>
+                            <MenuItem > 
+                                  {t('amdin.sidebar.title5')}
+                                  <Link to="/admin/manage-quizzes"/>
                             </MenuItem>
                              
-                            <MenuItem> Quản lý Câu Hỏi
-                            <Link to="/admin/manage-questions"/>
+                            <MenuItem> 
+                                {t('amdin.sidebar.title6')}
+                                <Link to="/admin/manage-questions"/>
                             </MenuItem>
                         </SubMenu>  
 

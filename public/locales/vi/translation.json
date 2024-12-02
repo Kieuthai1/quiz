@@ -1,9 +1,92 @@
-{
+{ 
+    "header":{
+      "title1": "KIUETHAI",
+      "title2": "Trang chủ",
+      "title3": "Người dùng",
+      "title4": "Quản trị",
+      "title5": "Câu hỏi",
+
+      "setting":{
+          "title0": "Cài đặt",
+          "title1": "Đăng nhập",
+          "title2": "Đăng kí",
+          "title3": "Hồ sơ cá nhân",
+          "title4": "Đăng xuất"
+      }
+    },
       "homepage": {
         "title1": "TẠO BÀI THI TRẮC NGHIỆM ONLINE MIỄN PHÍ VÀ DỄ SỬ DỤNG",
         "title2": "Nhiều tùy chọn trộn câu hỏi và tự động chấm bài làm",
         "title3": "Tạo bài thi lấy ngẫu nhiên từ ngân hàng câu hỏi trắc nghiệm của bạn",
         "title4": "Triển khai thi online hoặc làm bài thi online không cần cài đặt ứng dụng",
-        "title5": "Trang chủ"
+        "title5": "HÃY BẮT ĐẦU & MIỄN PHÍ!",
+        "title6": "LÀM BÀI!",
+        "title7": "Bắt đầu"
+
+      },
+      "login":{
+          "header1": "Bạn chưa có tài khoản?",
+          "header2": "Đăng ký",
+          "title3": "Xin chào, đây là ai?",
+          "title4": "Email",
+          "title5": "Mật khẩu",
+          "title6": "Quên mật khẩu",
+          "title7": "Đăng nhập vào KIUETHAI",
+          "title8": "Trở về trang chủ"
+      },
+      "regiter":{
+        "header1": "Bạn đã có tài khoản chưa?",
+        "header2": "Đăng nhập",
+        "title3": "Xin chào, đây là ai?",
+        "title4": "Email",
+        "title5": "Mật khẩu",
+        "title6": "Tên người dùng",
+        "title7": "Đăng ký KIUETHAI",
+        "title8": "Trở về trang chủ"
+      },
+      "amdin":{
+          "sidebar":{
+            "title0": "Trang chủ",
+            "title1": "Trang tổng quan",
+            "title2": "Sign up",
+            "title3": "Đặc trưng",
+            "title4": "Quản lý người dùng",
+            "title5": "Quản lý bài kiểm tra",
+            "title6": "Quản lý câu hỏi"
+            },
+             "Dashboard":{
+              "title0": "Trang tổng quan phân tích",
+              "title1": "Tổng số người dùng",
+              "title2": "Tổng số bài kiểm tra",
+              "title3": "Tổng số câu hỏi",
+              "title4": "Tổng số câu trả lời"
+           },
+           "ManageUser":{
+               "title0": "Quản lý người dùng",
+               "title1": " Thêm người dùng mới"     
+           },
+           "TableUserPage":{
+               "title0": "Tên người dùng",
+               "title1": "Vai trò",
+               "title2": "Hành động",
+               "title3": "Vai trò",
+               "title4": "Xem",
+               "title5": "Cập nhật",
+               "title6": "Xóa",
+               "title7": "tiếp theo >",
+               "title8": "< trước đó"
+           },
+           "ModalCreateUser":{
+            "title0": "Thêm người dùng mới",
+            "title1": "Mật khẩu",
+            "title2": "Tên người dùng",
+            "title3": "Vai trò",
+            "title4": "Tải lên hình ảnh tệp",
+            "title5": "Xem trước hình ảnh",
+            "title6": "Đóng",
+            "title7": "Lưu"
+         }
+
       }
+
 }

@@ -1,10 +1,93 @@
-{   
+{     
+      "header":{
+          "title1": "KIUETHAI",
+          "title2": "Home",
+          "title3": "User",
+          "title4": "Admin",
+          "title5": "Quiz",
+
+          "setting":{
+              "title0": "Setting",
+              "title1": "Log in",
+              "title2": "Sign up",
+              "title3": "Profile",
+              "title4": "Log out"
+          }
+
+      },
+
      "homepage": {
         "title1": "CREATE FREE AND EASY TO USE ONLINE QUIZ TESTS",
         "title2": "Multiple question mixing and auto-punctuation options",
         "title3": "Create random tests from your multiple-choice question bank",
         "title4": "Deploy online tests or take online tests without installing the application",
-        "title5": "Home page"
+        "title5": "Get's started. It's free",
+        "title6": "Doing Quiz Now",
+        "title7": "Start Now"
+      },
+      "login":{
+          "header1": "Don't have an account yet?",
+          "header2": "Sign up",
+          "title3": "Hello, who's this?",
+          "title4": "Email",
+          "title5": "Password",
+          "title6": "Forgot password",
+          "title7": "Login to KIUETHAI",
+          "title8": "Go To Home"
+      },
+      "regiter":{
+          "header1": "Already have an account ?",
+          "header2": "Log in",
+          "title3": " Hello, who's this?",
+          "title4": "Email",
+          "title5": "Password",
+          "title6": "Username",
+          "title7": "Sign up to KIUETHAI",
+         "title8": "Go To Home"
+      },
+      "amdin":{
+            "sidebar":{
+              "title0": "Home page",
+              "title1": "Dashboard",
+              "title2": "Sign up",
+              "title3": "Features",
+              "title4": "Manage Users",
+              "title5": "Quiz Management",
+              "title6": "Question Management"
+            
+          },
+          "Dashboard":{
+              "title0": "Analytics Dashboard",
+              "title1": "Total users",
+              "title2": "Total Quiz",
+              "title3": "Total Question",
+              "title4": "Total  Answers"
+          },
+          "ManageUser":{
+              "title0": "ManageUser",
+              "title1": " Add new user"     
+          },
+          "TableUserPage":{
+              "title0": "Username",
+              "title1": "Role",
+              "title2": "Action",
+              "title3": "Role",
+              "title4": "View",
+              "title5": "Update",
+              "title6": "Delete",
+              "title7": "next >",
+              "title8": "< previous"
+          },
+          "ModalCreateUser":{
+            "title0": "Add new user",
+            "title1": "Password",
+            "title2": "Username",
+            "title3": "Role",
+            "title4": "Upload File image",
+            "title5": "Preview img",
+            "title6": "Close",
+            "title7": "Save"
+        }
       }
  
 }

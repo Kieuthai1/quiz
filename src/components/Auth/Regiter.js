@@ -6,12 +6,15 @@ import {  toast } from 'react-toastify';
 
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import Language from '../Header/Language';
+import { useTranslation, Trans } from 'react-i18next';
+
 const Regiter = () => {
     const [email,setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUserName] = useState("");
     const [isShowPassword, setIsShowPassword] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
 
     const validateEmail = (email) => {
@@ -47,19 +50,19 @@ const Regiter = () => {
     return(
         <div className="login-container">
            <div className='header'>
-                 <span>Already have an account ?</span> 
-                 <button onClick={() => navigate('/login')}>Log in</button>
+                 <span>{t('regiter.header1')}</span> 
+                 <button onClick={() => navigate('/login')}>{t('regiter.header2')}</button>
                  <Language/>
            </div>
            <div className='title col-4 mx-auto'>
                 KIUETHAI
             </div>
             <div className='welcome col-4 mx-auto'>
-            Hello, who's this?
+            {t('regiter.title3')}
             </div>
             <div className='content-form col-4 mx-auto'>
                     <div className='form-group'>
-                        <label>Email (*)</label>
+                        <label>{t('regiter.title4')} (*)</label>
                         <input 
                         type={'email'} 
                         className='form-control'
@@ -68,7 +71,7 @@ const Regiter = () => {
                         />
                     </div>
                     <div className='form-group pass-group'>
-                        <label>Password (*)</label>
+                        <label>{t('regiter.title5')} (*)</label>
                         <input
                         type={isShowPassword ? 'text' : "password"} 
                         className='form-control'
@@ -90,7 +93,7 @@ const Regiter = () => {
                         }
                     </div>
                     <div className='form-group'>
-                        <label>Username</label>
+                        <label>{t('regiter.title6')}</label>
                         <input
                         type={'username'} 
                         className='form-control'
@@ -102,12 +105,12 @@ const Regiter = () => {
                         <button
                         className='btn-submit' 
                         onClick={() => handleRegiter()}
-                        >Sign up to KIUETHAI
+                        >{t('regiter.title7')}
                         </button>
                       </div>
                       <div className='text-center'>
                         <span className='back' onClick={() => {navigate('/')}}>
-                          &#60;&#60;   Go To Home
+                          &#60;&#60;  {t('regiter.title8')}
                         </span>
                     </div>
                     

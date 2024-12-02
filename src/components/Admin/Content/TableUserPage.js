@@ -1,9 +1,10 @@
 import ReactPaginate from "react-paginate";
 import { useState, useEffect } from "react";
+import { useTranslation, Trans } from 'react-i18next';
 
 
 const TableUserPage = (props) => {
-
+    const { t } = useTranslation();
     const {listUsers, pageCount} = props;
     // const listUsers = props.listUsers;
       // Invoke when user click to request another page.
@@ -19,10 +20,10 @@ const TableUserPage = (props) => {
             <thead>
                 <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Username</th>
+                <th scope="col">{t('amdin.TableUserPage.title0')}</th>
                 <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th> Action</th>
+                <th scope="col">{t('amdin.TableUserPage.title1')}</th>
+                <th> {t('amdin.TableUserPage.title2')}</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,14 +40,14 @@ const TableUserPage = (props) => {
                                 <button 
                                     className="btn btn-secondary" 
                                     onClick={() => props.handleBtnView(item)}
-                                    >View</button>
+                                    >{t('amdin.TableUserPage.title4')}</button>
                                 <button 
                                     className="btn btn-warning mx-3"
                                     onClick = {() => props.handleClickBtnUpdate(item)}
-                                    >Update</button>
+                                    >{t('amdin.TableUserPage.title5')}</button>
                                 <button className="btn btn-danger" 
                                         onClick={() => props.handleClickBtnDelete(item)}
-                                            >Delete</button>
+                                            >{t('amdin.TableUserPage.title6')}</button>
                             </td>
                             </tr>
           
@@ -65,12 +66,12 @@ const TableUserPage = (props) => {
             </table>  
             <div className="user-pagination d-flex justify-content-center">
             <ReactPaginate
-                nextLabel="next >"
+                nextLabel={t('amdin.TableUserPage.title7')}
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
                 marginPagesDisplayed={2}
                 pageCount={pageCount}
-                previousLabel="< previous"
+                previousLabel={t('amdin.TableUserPage.title8')}
                 pageClassName="page-item"
                 pageLinkClassName="page-link"
                 previousClassName="page-item"

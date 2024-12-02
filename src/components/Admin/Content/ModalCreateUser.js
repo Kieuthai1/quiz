@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import {  toast } from 'react-toastify';
 import {postCeateNewUser} from '../../../services/apiService'
+import { useTranslation, Trans } from 'react-i18next';
 
 const  ModalCreateUser = (props)=> {
   const {show, setShow} = props;
@@ -23,6 +24,7 @@ const  ModalCreateUser = (props)=> {
   const [role, setRole] = useState("USER");
   const [image, setImage] = useState("");
   const [preViewImage, setPreviewImage] = useState("");
+  const { t } = useTranslation();
 
   const handleUploadImage = (event) => {
     if(event.target && event.target.files && event.target.files[0] ){
@@ -77,7 +79,7 @@ const  ModalCreateUser = (props)=> {
         className= 'modal-add-user'
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add new user</Modal.Title>
+          <Modal.Title>{t('amdin.ModalCreateUser.title0')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
@@ -90,7 +92,7 @@ const  ModalCreateUser = (props)=> {
                           onChange={(event) => setEmail(event.target.value)}/>
               </div>
               <div className="col-md-6">
-                <label  className="form-label">Password</label>
+                <label  className="form-label">{t('amdin.ModalCreateUser.title1')}</label>
                 <input 
                 type="password" 
                 className="form-control" 
@@ -100,7 +102,7 @@ const  ModalCreateUser = (props)=> {
               </div>
 
               <div className="col-md-6">
-                <label  className="form-label">Username</label>
+                <label  className="form-label">{t('amdin.ModalCreateUser.title2')}</label>
                 <input 
                       type="text" 
                       className="form-control" 
@@ -108,7 +110,7 @@ const  ModalCreateUser = (props)=> {
                       onChange={(event) => setUsername(event.target.value)}/>
               </div>
               <div className="col-md-4">
-                <label  className="form-label">Role</label>
+                <label  className="form-label">{t('amdin.ModalCreateUser.title3')}</label>
                 <select  className="form-select" value={role} onChange={(event) => setRole(event.target.value)}>
                   <option value="USER">USER</option>
                   <option value="ADMIN" >ADMIN</option>
@@ -116,7 +118,7 @@ const  ModalCreateUser = (props)=> {
               </div>
               <div className='col-mid-12'>
                 <label className='form-label label-upload' htmlFor='labelUpload'>
-                  <FcPlus/>  Upload File image
+                  <FcPlus/>  {t('amdin.ModalCreateUser.title4')}
                 </label>
                 <input 
                 type='file' 
@@ -128,7 +130,7 @@ const  ModalCreateUser = (props)=> {
                 {preViewImage ? 
                    <img src={preViewImage}/>
                    :
-                   <span>Preview img</span>
+                   <span>{t('amdin.ModalCreateUser.title5')}</span>
                 }
               </div>
 
@@ -136,10 +138,10 @@ const  ModalCreateUser = (props)=> {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+          {t('amdin.ModalCreateUser.title6')}
           </Button>
           <Button variant="primary" onClick={() => handSubmitCreateUser()}>
-            Save 
+          {t('amdin.ModalCreateUser.title7')}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -31,30 +31,44 @@ body {
       height: 40px;
       &:hover{
         background: rgb(179, 179, 179);
+        }
       }
-  }
-  .btn-signup {
-    border-radius: 5px;
-    padding: 0 15px;
-    background: #303030;
-    color: white;
-    height: 40px;
+        .btn-signup {
+          border-radius: 5px;
+          padding: 0 15px;
+          background: #303030;
+          color: white;
+          height: 40px;
 
-    &:hover{
-      background: black;
+          &:hover{
+            background: black;
+          }
+      }
+      .navbar{
+        padding-top: 20px;
+        z-index: 10;
+        background-color: rgba(0, 0, 0,0)  !important;
+      .nav-link{
+        &.active{
+          color: #00bfff;
+          }  
+        }
+      }
+    .react-icon{
+      font-size: 43px;
+      color: #56c2d0;
+      padding: 3px;
+       animation: rotate 8s linear infinite;
     }
-}
-    .navbar{
-      padding-top: 20px;
-      z-index: 10;
-      background-color: rgba(0, 0, 0,0)  !important;
-     .nav-link{
-      &.active{
-        color: #00bfff;
-     }  
-     }
+    @keyframes rotate {
+      from {
+          transform: rotate(0deg);
+      }
+
+      to {
+          transform: rotate(360deg);
+      }
     }
-    
   }
   .homepage-container{
     .homepage-content{

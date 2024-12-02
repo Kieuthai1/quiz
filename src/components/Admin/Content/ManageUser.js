@@ -8,6 +8,7 @@ import ModalUpdateUser from "./ModalUpdateUser";
 import ModalView from "./ModelView";
 import ModalDeleteUser from "./ModalDeleteUser";
 import TableUserPage from "./TableUserPage";
+import { useTranslation, Trans } from 'react-i18next';
 
 const ManageUser = (props) =>{
     const LIMIT_USER =  3;
@@ -22,6 +23,8 @@ const ManageUser = (props) =>{
     const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
     const [listUsers, setListUsers] = useState([]);
     const [dataDelete, setDataDelete] = useState({});
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         // fetchListUsers();
@@ -62,11 +65,11 @@ const ManageUser = (props) =>{
     return(
         <div className="manage-user-container">
             <div className="title">
-                    ManageUser
+            {t('amdin.ManageUser.title0')}
             </div>
             <div className="users-content">
                     <div className="btn-add-new">
-                        <button className="btn btn-primary" onClick={() => setShowModalCreateUser(true)}> <FcPlus/> add new user</button>
+                        <button className="btn btn-primary" onClick={() => setShowModalCreateUser(true)}> <FcPlus/>{t('amdin.ManageUser.title1')}</button>
                     </div>
                     <div className="table-user-container">
                         {/* <TableUser 

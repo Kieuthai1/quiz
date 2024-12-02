@@ -2,10 +2,12 @@ import './DashBoard.scss';
 import {ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from 'recharts';
 import { getOverview } from '../../../services/apiService';
 import { useState, useEffect } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 
 const Dashboard = (props)=>{
     const [dataOverview, setDataOverview] = useState([]);
     const [dataChart, setDataChart] = useState([]);
+    const { t } = useTranslation();
 
     useEffect(() =>{
       fetchDataOverview();
@@ -62,12 +64,12 @@ const Dashboard = (props)=>{
         return(
             <div className="dashbroad-container">
                 <div className='title'>
-                    Analytics Dashboard
+                {t('amdin.Dashboard.title0')} 
                 </div>
                <div className='content'>
                     <div className='c-left'>
                         <div className='child'>
-                          <span className='text-1'>Total users </span>
+                          <span className='text-1'> {t('amdin.Dashboard.title1')}  </span>
                           <span className='text-2'>
                               {dataOverview && dataOverview.users
                                 && dataOverview.users.total ? 
@@ -79,7 +81,7 @@ const Dashboard = (props)=>{
                            
                         </div>
                         <div className='child'>
-                        <span className='text-1'>Total Quiz </span>
+                        <span className='text-1'> {t('amdin.Dashboard.title2')}  </span>
                         <span className='text-2'>
                         {dataOverview && dataOverview.others
                                 && dataOverview.others.countQuiz ? 
@@ -91,7 +93,7 @@ const Dashboard = (props)=>{
                           
                         </div>
                         <div className='child'>
-                          <span className='text-1'>Total Question </span>
+                          <span className='text-1'> {t('amdin.Dashboard.title3')}  </span>
                           <span className='text-2'>
                             {dataOverview && dataOverview.others
                                 && dataOverview.others.countQuestions ? 
@@ -103,7 +105,7 @@ const Dashboard = (props)=>{
                           
                         </div>
                         <div className='child'>
-                          <span className='text-1'>Total  Answers </span>
+                          <span className='text-1'> {t('amdin.Dashboard.title4')}  </span>
                           <span className='text-2'>
                              
                             {dataOverview && dataOverview.others

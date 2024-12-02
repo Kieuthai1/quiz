@@ -29,9 +29,9 @@ const HomePage = (props) => {
                </div>
                 <div  className='title-3'>
                     {isAuthenticated === false ?
-                         <button onClick={() => navigite('/login')}>Get's started. It's free</button>
+                         <button onClick={() => navigite('/login')}>{t('homepage.title5')}</button>
                          :
-                         <button onClick={() => navigite('/users')}>Doing Quiz Now</button>
+                         <button onClick={() => navigite('/users')}>{t('homepage.title6')}</button>
                         }               
                 </div>
            </div>
