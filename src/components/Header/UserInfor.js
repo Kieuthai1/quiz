@@ -1,12 +1,11 @@
-import { useEffect,useState } from "react";
-import { useSelector, useDispatch  } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { FcPlus } from "react-icons/fc";
 import "./Share.scss";
 import Button from "react-bootstrap/Button";
 import _ from "lodash";
 import { postUpdateUser } from "../../services/apiService";
 import { toast } from "react-toastify";
-
 
 const UserInfor = () => {
   const account = useSelector((state) => state.user.account);
@@ -20,36 +19,34 @@ const UserInfor = () => {
   const [preViewImage, setPreviewImage] = useState("");
   const [dataUpdate, setDataUpdate] = useState({});
 
-  console.log("check data: ", account)
+  console.log("check data: ", account);
 
-   useEffect(() => {
-      if (account && !_.isEmpty(account)) {
-        // update state
-        setEmail(account.email);
-        setUsername(account.username);
-        setRole(account.role);
-        setImage("");
-        if (account.image) {
-          setPreviewImage(`data:image/jpeg;base64,${account.image}`);
-        }
+  useEffect(() => {
+    if (account && !_.isEmpty(account)) {
+      // update state
+      setEmail(account.email);
+      setUsername(account.username);
+      setRole(account.role);
+      setImage("");
+      if (account.image) {
+        setPreviewImage(`data:image/jpeg;base64,${account.image}`);
       }
-    }, [account]);
+    }
+  }, [account]);
 
-    const handUpdateUser = async () => {
-      
-      let data = await postUpdateUser(account.access_token, username,  image);
-      console.log("component res: ", data);
-      if (data && data.EC === 0) {
-        toast.success(data.EM);
+  const handUpdateUser = async () => {
+    let data = await postUpdateUser(account.access_token, username, image);
+    console.log("component res: ", data);
+    if (data && data.EC === 0) {
+      toast.success(data.EM);
 
-      
-        await account.fetchListUsersWithPaginate(account.currentPage);
-      }
-      if (data && data.EC !== 0) {
-        toast.error(data.EM);
-      }
-    };
-  
+      await account.fetchListUsersWithPaginate(account.currentPage);
+    }
+    if (data && data.EC !== 0) {
+      toast.error(data.EM);
+    }
+  };
+
   const handleUploadImage = (event) => {
     if (event.target && event.target.files && event.target.files[0]) {
       setPreviewImage(URL.createObjectURL(event.target.files[0]));
@@ -104,15 +101,24 @@ const UserInfor = () => {
             onChange={(event) => handleUploadImage(event)}
           />
         </div>
-        <div className="col-mid-12 img-preview" style={{display: 'flex', justifyContent: 'center'}}>
-          {preViewImage ? <img src={preViewImage} className="img-user"/> : <span>Preview img</span>}
+        <div
+          className="col-mid-12 img-preview"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          {preViewImage ? (
+            <img src={preViewImage} className="img-user" />
+          ) : (
+            <span>Preview img</span>
+          )}
         </div>
       </form>
       <div>
-        <hr/>
-       <button className="btn btn-warning" onClick={() => handUpdateUser()} > Update</button>
+        <hr />
+        <button className="btn btn-warning" onClick={() => handUpdateUser()}>
+          {" "}
+          Update
+        </button>
       </div>
-    
     </>
   );
 };

@@ -129,27 +129,27 @@ const postUpdateUser = (accessToken, username, image) => {
   });
 };
 
-
-
+const postChangePassword = (current_password, new_password) => {
+  let formData = new FormData();
+  formData.append("current_password", current_password);
+  formData.append("new_password", new_password);
+  return axios.post(`api/v1/change-password`, formData);
+};
+const getHistory = (accessToken) => {
+  return axios.get("/api/v1/history", 
+    {
+      headers: {
+        "Content-Type": "multipart/form-data", // Important for file uploads
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+};
 export {
-  postCeateNewUser, getAllUsers, putUpdateUser,
-  deleteUser,
-  getUserWithPaginate,
-  postLogin,
-  postRegiter,
-  getQuizByUser,
-  getDataQuiz,
-  postSubmitQuiz,
-  postCreatNewQuiz,
-  getAllQuizForAdmin,
-  DelQuizForAdmin,
-  putUpdateQuizForAdmin,
-  postCreateNewQuesitonForQuiz,
-  postCreateNewAnswerForQuestion,
-  logout,
-  postzAssignQuiz,
-  getQuizWithQA,
-  postUpsertQA,
-  getOverview,
-  postUpdateUser,
+  postCeateNewUser, getAllUsers, putUpdateUser, deleteUser,
+  getUserWithPaginate,postLogin, postRegiter,getQuizByUser,
+  getDataQuiz,postSubmitQuiz, postCreatNewQuiz, getAllQuizForAdmin,
+  DelQuizForAdmin, putUpdateQuizForAdmin, postCreateNewQuesitonForQuiz,
+  postCreateNewAnswerForQuestion, logout, postzAssignQuiz, getQuizWithQA,
+  postUpsertQA, getOverview, postUpdateUser,postChangePassword,
+  getHistory
 };
