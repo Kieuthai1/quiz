@@ -20,8 +20,11 @@ const DetailQuiz = (props) => {
   const [index, setIndex] = useState(0);
   const [isShowModalResult, setIsShowModalResult] = useState(false);
   const [dataModalResult, setDataModalResult] = useState({});
-  const { t } = useTranslation();
+  const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
+  const [isShowAnswer, setIsShowAnswer] = useState(false);
 
+
+  const { t } = useTranslation();
   useEffect(() => {
     fetchQuestions();
   }, [quizId]);
@@ -30,8 +33,8 @@ const DetailQuiz = (props) => {
     let res = await getDataQuiz(quizId);
     if (res && res.EC === 0) {
       let raw = res.DT;
-      let data = _.chain(raw) // chuyen du lieu cho lodash sd
-        // Group the elements of Array based on `color` property
+      let data = _.chain(raw)
+        // Group the elements of Array based on `id` property
         .groupBy("id")
         // `key` is group's name (color), `value` is the array of objects
         .map((value, key) => {
@@ -44,15 +47,23 @@ const DetailQuiz = (props) => {
               image = item.image;
             }
             item.answers.isSelected = false;
+            item.answers.isCorrect = false;
             answers.push(item.answers);
           });
           answers = _.orderBy(answers, ["id"], ["asc"]);
-          return { questionId: key, answers, questionDescription, image };
+
+          return {
+            questionId: key,
+            answers,
+            questionDescription,
+            image,
+          };
         })
         .value();
       setDataQuiz(data);
     }
   };
+
   const handlePrev = () => {
     if (index - 1 < 0) return;
 
@@ -74,7 +85,7 @@ const DetailQuiz = (props) => {
         return item;
       });
 
-      //   console.log(b)
+      // console.log("check box b", b)
     }
     let index = dataQuizClone.findIndex(
       (item) => +item.questionId === +questionId
@@ -83,11 +94,12 @@ const DetailQuiz = (props) => {
       dataQuizClone[index] = question;
       setDataQuiz(dataQuizClone);
     }
+    //   console.log("check box1" )
   };
 
   const handleFinishQuiz = async () => {
-    console.log("<<<<< check data before", dataQuiz);
-    let paylaod = {
+    //  console.log("<<<<< check data before", dataQuiz);
+    let payload = {
       quizId: +quizId,
       answers: [],
     };
@@ -109,22 +121,59 @@ const DetailQuiz = (props) => {
         });
       });
 
-      paylaod.answers = answers;
+      payload.answers = answers;
       //submit api
-      let res = await postSubmitQuiz(paylaod);
-      console.log(">>> check data before submit: ", res);
+      let res = await postSubmitQuiz(payload);
+      // console.log(">>> check data before submit: ", res);
       if (res && res.EC === 0) {
+        setIsSubmitQuiz(true);
         setDataModalResult({
           countCorrect: res.DT.countCorrect,
           countTotal: res.DT.countTotal,
           quizData: res.DT.quizData,
         });
         setIsShowModalResult(true);
+
+        console.log("check res ", res);
+
+        // update DataQuiz with correct answer
+        if (res.DT && res.DT.quizData) {
+          let dataQuizClone = _.cloneDeep(dataQuiz);
+          let a = res.DT.quizData;
+          for (let q of a) {
+            for (let i = 0; i < dataQuizClone.length; i++) {
+              if (+q.questionId === +dataQuizClone[i].questionId) {
+                // update answer
+                let newAnswers = [];
+                for (let j = 0; j < dataQuizClone[i].answers.length; j++) {
+                  let s = q.systemAnswers.find(
+                    (item) => +item.id === +dataQuizClone[i].answers[j].id
+                  );
+                  if (s) {
+                    dataQuizClone[i].answers[j].isCorrect = true;
+                  }
+                  newAnswers.push(dataQuizClone[i].answers[j]);
+                }
+                dataQuizClone[i].answers = newAnswers;
+              }
+            }
+          }
+         
+          setDataQuiz(dataQuizClone);
+         
+        }
       } else {
         alert("something wrongs>>>>");
       }
     }
   };
+  const handleShowAnswer = () => {
+    console.log("Trước khi setState:", isShowAnswer); // Debug trạng thái trước
+    if (!isSubmitQuiz) return;
+    setIsShowAnswer(true);
+    console.log("Sau khi setState:", isShowAnswer); // Debug trạng thái sau
+  };
+
   return (
     <>
       <div className="main-quiz-detai-new-header">
@@ -155,6 +204,8 @@ const DetailQuiz = (props) => {
             <Question
               index={index}
               handleCheckbox={handleCheckbox}
+              isShowAnswer={isShowAnswer}
+              isSubmitQuiz={isSubmitQuiz}
               data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
             />
           </div>
@@ -166,6 +217,7 @@ const DetailQuiz = (props) => {
               Next
             </button>
             <button
+              disabled={isSubmitQuiz}
               className="btn btn-warning "
               onClick={() => handleFinishQuiz()}
             >
@@ -178,12 +230,15 @@ const DetailQuiz = (props) => {
             dataQuiz={dataQuiz}
             handleFinishQuiz={handleFinishQuiz}
             setIndex={setIndex}
+            isSubmitQuiz = {isSubmitQuiz}
+           
           />
         </div>
         <ModalResult
           show={isShowModalResult}
           setShow={setIsShowModalResult}
           dataModalResult={dataModalResult}
+          handleShowAnswer={handleShowAnswer}
         />
       </div>
     </>

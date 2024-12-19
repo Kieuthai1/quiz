@@ -1,17 +1,22 @@
 import CountDown from "./CountDown";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 
 const RightContent = (props) =>{
     const refDiv = useRef([]);
+    const [isQuizFinished, setIsQuizFinished] = useState(false);
 
-    
     const {dataQuiz} = props;
 
     const onTimeUp = () =>{
         props.handleFinishQuiz();
     }
 
+    const handleFinishQuiz = () =>{
+        console.log("Finishing quiz..."); 
+        setIsQuizFinished(true);
+        props.handleFinishQuiz();
+    }
 
     const getClassQuestion = (index, question) =>{
         console.log(index, question)
@@ -49,6 +54,8 @@ const RightContent = (props) =>{
             <div className="main-timer">
                 <CountDown
                     onTimeUp={onTimeUp}
+                    isQuizFinished={isQuizFinished}
+                    isSubmitQuiz={props.isSubmitQuiz}
                 />
             </div>
             <div className="main-question">
