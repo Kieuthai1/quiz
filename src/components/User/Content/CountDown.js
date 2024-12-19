@@ -4,20 +4,18 @@ const CountDown = (props) => {
 
   const toMMSS = new Date(count * 1000).toISOString().substring(14, 19);
 
-
-
   useEffect(() => {
-   // console.log("isQuizFinished:", props.isSubmitQuiz);
+    // console.log("isQuizFinished:", props.isSubmitQuiz);
     // Dừng bộ đếm khi bài thi hoàn thành
     if (props.isSubmitQuiz) {
-        return;
-      }
+      return;
+    }
 
     if (count === 0) {
       props.onTimeUp();
       return;
     }
-    
+
     const timer = setInterval(() => {
       setCount(count - 1);
     }, 1000);

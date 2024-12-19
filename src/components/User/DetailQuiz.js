@@ -23,7 +23,6 @@ const DetailQuiz = (props) => {
   const [isSubmitQuiz, setIsSubmitQuiz] = useState(false);
   const [isShowAnswer, setIsShowAnswer] = useState(false);
 
-
   const { t } = useTranslation();
   useEffect(() => {
     fetchQuestions();
@@ -158,9 +157,8 @@ const DetailQuiz = (props) => {
               }
             }
           }
-         
+
           setDataQuiz(dataQuizClone);
-         
         }
       } else {
         alert("something wrongs>>>>");
@@ -230,8 +228,7 @@ const DetailQuiz = (props) => {
             dataQuiz={dataQuiz}
             handleFinishQuiz={handleFinishQuiz}
             setIndex={setIndex}
-            isSubmitQuiz = {isSubmitQuiz}
-           
+            isSubmitQuiz={isSubmitQuiz}
           />
         </div>
         <ModalResult
